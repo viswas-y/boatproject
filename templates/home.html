@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kayal Houseboats — Backwater Cruises in Kerala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F4EFE2;
+    --cream-deep:#E9E0CB;
+    --teal-900:#16332E;
+    --teal-700:#234A43;
+    --teal-500:#3E7C6F;
+    --teal-300:#86B0A6;
+    --gold-500:#DFA855;
+    --gold-700:#C2853B;
+    --clay-500:#BD6F42;
+    --ink:#1C2420;
+    --ink-soft:#5B6A64;
+    --line:rgba(22,51,46,0.12);
+    --shadow:0 20px 50px -25px rgba(22,51,46,0.45);
+    --radius-lg:28px;
+    --radius-md:18px;
+    --radius-sm:10px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Manrope',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img,svg{display:block;max-width:100%;}
+
+  a{color:inherit;text-decoration:none;}
+
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:0.78rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold-700);
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+  }
+
+  .eyebrow::before{
+    content:"";
+    display:inline-block;
+    width:28px;
+    height:1px;
+    background:var(--gold-700);
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--teal-900);
+  }
+
+  .container{
+    max-width:1240px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ===================== NAV ===================== */
+  .nav{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+    padding:22px 0;
+    transition:background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .nav-logo{
+    font-family:'Fraunces',serif;
+    font-size:1.45rem;
+    font-weight:600;
+    color:var(--cream);
+    letter-spacing:0.01em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .nav-logo span{
+    font-family:'Space Mono',monospace;
+    font-size:0.65rem;
+    letter-spacing:0.25em;
+    color:var(--gold-500);
+    border:1px solid rgba(223,168,85,0.5);
+    padding:3px 7px;
+    border-radius:99px;
+    text-transform:uppercase;
+  }
+
+  .nav-links{
+    display:flex;
+    gap:38px;
+    align-items:center;
+  }
+
+  .nav-links a{
+    font-size:0.92rem;
+    color:var(--cream);
+    opacity:0.85;
+    transition:opacity 0.25s ease;
+    position:relative;
+  }
+
+  .nav-links a:hover{opacity:1;}
+
+  .nav-cta{
+    font-family:'Space Mono',monospace;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--teal-900) !important;
+    background:var(--gold-500);
+    padding:11px 22px;
+    border-radius:99px;
+    opacity:1 !important;
+    transition:background 0.25s ease, transform 0.25s ease;
+  }
+
+  .nav-cta:hover{background:var(--cream);transform:translateY(-1px);}
+
+  .nav-burger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:6px;
+  }
+
+  .nav-burger span{
+    width:24px;height:2px;background:var(--cream);border-radius:2px;
+    transition:background 0.3s ease;
+  }
+
+  .nav.scrolled{
+    background:rgba(244,239,226,0.92);
+    backdrop-filter:blur(14px);
+    box-shadow:0 8px 30px -20px rgba(22,51,46,0.4);
+    padding:14px 0;
+  }
+
+  .nav.scrolled .nav-logo,
+  .nav.scrolled .nav-links a{color:var(--teal-900);}
+  .nav.scrolled .nav-cta{color:var(--teal-900) !important;}
+  .nav.scrolled .nav-burger span{background:var(--teal-900);}
+
+  /* ===================== HERO ===================== */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    background:linear-gradient(180deg, #1E4A43 0%, #16332E 55%, #102622 100%);
+    padding-top:120px;
+    padding-bottom:60px;
+  }
+
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+    width:100%;
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:60px;
+    align-items:center;
+  }
+
+  .hero-text .eyebrow{color:var(--gold-500);}
+  .hero-text .eyebrow::before{background:var(--gold-500);}
+
+  .hero-text h1{
+    color:var(--cream);
+    font-size:clamp(2.6rem, 5.2vw, 4.4rem);
+    line-height:1.06;
+    margin:22px 0 22px;
+  }
+
+  .hero-text h1 em{
+    font-style:italic;
+    color:var(--gold-500);
+  }
+
+  .hero-text p{
+    color:rgba(244,239,226,0.78);
+    font-size:1.08rem;
+    max-width:480px;
+    margin-bottom:34px;
+  }
+
+  .hero-actions{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+
+  .btn{
+    font-family:'Space Mono',monospace;
+    font-size:0.8rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:16px 30px;
+    border-radius:99px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .btn-primary{
+    background:var(--gold-500);
+    color:var(--teal-900);
+  }
+  .btn-primary:hover{transform:translateY(-2px);background:var(--cream);}
+
+  .btn-ghost{
+    background:transparent;
+    color:var(--cream);
+    border-color:rgba(244,239,226,0.35);
+  }
+  .btn-ghost:hover{border-color:var(--cream);transform:translateY(-2px);}
+
+  .hero-illustration{
+    position:relative;
+  }
+
+  .hero-illustration svg{
+    width:100%;
+    height:auto;
+  }
+
+  .houseboat-float{
+    animation:floatBoat 6s ease-in-out infinite;
+    transform-origin:center;
+  }
+
+  @keyframes floatBoat{
+    0%,100%{transform:translateY(0px);}
+    50%{transform:translateY(-10px);}
+  }
+
+  /* ===================== SEARCH WIDGET ===================== */
+  .search-widget{
+    position:relative;
+    z-index:3;
+    margin-top:54px;
+    background:var(--cream);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+    padding:28px;
+    display:grid;
+    grid-template-columns:1.2fr 1fr 1fr 0.8fr auto;
+    gap:18px;
+    align-items:end;
+  }
+
+  .field{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .field label{
+    font-family:'Space Mono',monospace;
+    font-size:0.68rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  .field select,
+  .field input{
+    font-family:'Manrope',sans-serif;
+    font-size:0.96rem;
+    font-weight:600;
+    color:var(--teal-900);
+    border:none;
+    background:transparent;
+    border-bottom:2px solid var(--line);
+    padding:6px 0 10px;
+    outline:none;
+    transition:border-color 0.25s ease;
+    appearance:none;
+  }
+
+  .field select:focus,
+  .field input:focus{border-color:var(--gold-700);}
+
+  .search-btn{
+    background:var(--teal-900);
+    color:var(--cream);
+    border:none;
+    border-radius:var(--radius-md);
+    padding:18px 26px;
+    font-family:'Space Mono',monospace;
+    font-size:0.8rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:background 0.25s ease, transform 0.25s ease;
+    white-space:nowrap;
+  }
+
+  .search-btn:hover{background:var(--gold-700);color:var(--teal-900);transform:translateY(-2px);}
+
+  /* ===================== TIDE DIVIDER ===================== */
+  .tide{
+    position:relative;
+    width:100%;
+    height:64px;
+    overflow:hidden;
+    line-height:0;
+  }
+
+  .tide svg{
+    position:absolute;
+    width:200%;
+    height:100%;
+    animation:driftWave 36s linear infinite;
+  }
+
+  @keyframes driftWave{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* ===================== SECTION GENERAL ===================== */
+  .section{
+    padding:120px 0;
+  }
+
+  .section-head{
+    max-width:640px;
+    margin-bottom:64px;
+  }
+
+  .section-head h2{
+    font-size:clamp(2rem, 3.6vw, 3rem);
+    margin-top:18px;
+    line-height:1.15;
+  }
+
+  .section-head p{
+    margin-top:18px;
+    color:var(--ink-soft);
+    font-size:1.05rem;
+    max-width:520px;
+  }
+
+  /* ===================== FLEET ===================== */
+  .fleet{
+    background:var(--cream);
+  }
+
+  .fleet-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:28px;
+  }
+
+  .fleet-card{
+    background:#fff;
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    transition:transform 0.35s ease, box-shadow 0.35s ease;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .fleet-card:hover{
+    transform:translateY(-8px);
+  }
+
+  .fleet-art{
+    background:linear-gradient(160deg, var(--teal-500) 0%, var(--teal-900) 100%);
+    padding:36px 28px 20px;
+    position:relative;
+    height:190px;
+  }
+
+  .fleet-art svg{position:absolute;bottom:0;left:0;width:100%;}
+
+  .fleet-tag{
+    font-family:'Space Mono',monospace;
+    font-size:0.68rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold-500);
+    position:relative;
+    z-index:2;
+  }
+
+  .fleet-body{
+    padding:26px 28px 30px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    flex:1;
+  }
+
+  .fleet-body h3{
+    font-size:1.4rem;
+  }
+
+  .fleet-route{
+    font-size:0.9rem;
+    color:var(--ink-soft);
+  }
+
+  .fleet-amenities{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:4px;
+  }
+
+  .pill{
+    font-size:0.74rem;
+    font-family:'Space Mono',monospace;
+    letter-spacing:0.04em;
+    color:var(--teal-700);
+    background:var(--cream-deep);
+    border-radius:99px;
+    padding:6px 12px;
+  }
+
+  .fleet-footer{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:auto;
+    padding-top:18px;
+    border-top:1px solid var(--line);
+  }
+
+  .fleet-price{
+    font-family:'Fraunces',serif;
+    font-size:1.5rem;
+    font-weight:600;
+    color:var(--teal-900);
+  }
+
+  .fleet-price span{
+    font-family:'Space Mono',monospace;
+    font-size:0.7rem;
+    color:var(--ink-soft);
+    font-weight:400;
+    display:block;
+    margin-top:2px;
+    letter-spacing:0.08em;
+  }
+
+  .fleet-link{
+    font-family:'Space Mono',monospace;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--teal-900);
+    border-bottom:1px solid var(--teal-900);
+    padding-bottom:3px;
+    transition:color 0.25s ease, border-color 0.25s ease;
+  }
+
+  .fleet-link:hover{color:var(--gold-700);border-color:var(--gold-700);}
+
+  /* ===================== ITINERARY ===================== */
+  .itinerary{
+    background:var(--teal-900);
+    color:var(--cream);
+  }
+
+  .itinerary .section-head h2,
+  .itinerary .section-head .eyebrow{color:var(--cream);}
+  .itinerary .section-head .eyebrow{color:var(--gold-500);}
+  .itinerary .section-head .eyebrow::before{background:var(--gold-500);}
+  .itinerary .section-head p{color:rgba(244,239,226,0.7);}
+
+  .itinerary-list{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:0;
+    border-top:1px solid rgba(244,239,226,0.14);
+  }
+
+  .itinerary-item{
+    padding:36px 28px;
+    border-right:1px solid rgba(244,239,226,0.14);
+    border-bottom:1px solid rgba(244,239,226,0.14);
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    min-height:230px;
+  }
+
+  .itinerary-item:last-child{border-right:none;}
+
+  .itinerary-num{
+    font-family:'Space Mono',monospace;
+    font-size:0.85rem;
+    color:var(--gold-500);
+    letter-spacing:0.1em;
+  }
+
+  .itinerary-item h3{
+    color:var(--cream);
+    font-size:1.25rem;
+    line-height:1.25;
+  }
+
+  .itinerary-item p{
+    color:rgba(244,239,226,0.65);
+    font-size:0.92rem;
+  }
+
+  /* ===================== WHY KAYAL ===================== */
+  .why{
+    background:var(--cream-deep);
+  }
+
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:28px;
+  }
+
+  .why-card{
+    background:var(--cream);
+    border-radius:var(--radius-md);
+    padding:32px 26px;
+    border:1px solid var(--line);
+  }
+
+  .why-card .icon{
+    width:46px;height:46px;
+    margin-bottom:20px;
+    color:var(--clay-500);
+  }
+
+  .why-card h3{
+    font-size:1.1rem;
+    margin-bottom:10px;
+  }
+
+  .why-card p{
+    font-size:0.92rem;
+    color:var(--ink-soft);
+  }
+
+  /* ===================== TESTIMONIALS ===================== */
+  .testimonials{
+    background:var(--cream);
+  }
+
+  .testi-wrap{
+    position:relative;
+    max-width:760px;
+    margin:0 auto;
+    text-align:center;
+  }
+
+  .testi-slide{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    gap:24px;
+    animation:fadeIn 0.6s ease;
+  }
+
+  .testi-slide.active{display:flex;}
+
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+  .testi-quote{
+    font-family:'Fraunces',serif;
+    font-size:clamp(1.3rem, 2.4vw, 1.8rem);
+    font-style:italic;
+    color:var(--teal-900);
+    line-height:1.5;
+  }
+
+  .testi-author{
+    font-family:'Space Mono',monospace;
+    font-size:0.78rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  .testi-dots{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:40px;
+  }
+
+  .testi-dot{
+    width:10px;height:10px;
+    border-radius:50%;
+    background:var(--line);
+    border:none;
+    cursor:pointer;
+    transition:background 0.25s ease;
+  }
+
+  .testi-dot.active{background:var(--gold-700);}
+
+  /* ===================== CTA ===================== */
+  .cta{
+    background:linear-gradient(135deg, var(--teal-700) 0%, var(--teal-900) 100%);
+    color:var(--cream);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .cta-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:40px;
+    flex-wrap:wrap;
+  }
+
+  .cta-inner h2{color:var(--cream);font-size:clamp(1.8rem, 3.6vw, 2.6rem);max-width:520px;}
+  .cta-inner p{color:rgba(244,239,226,0.7);margin-top:14px;max-width:460px;}
+
+  /* ===================== FOOTER ===================== */
+  footer{
+    background:var(--teal-900);
+    color:rgba(244,239,226,0.7);
+    padding:80px 0 30px;
+  }
+
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1.2fr;
+    gap:48px;
+    padding-bottom:60px;
+    border-bottom:1px solid rgba(244,239,226,0.12);
+  }
+
+  .footer-logo{
+    font-family:'Fraunces',serif;
+    font-size:1.6rem;
+    color:var(--cream);
+    margin-bottom:16px;
+  }
+
+  .footer-grid p{font-size:0.92rem;max-width:280px;}
+
+  .footer-col h4{
+    font-family:'Space Mono',monospace;
+    font-size:0.74rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold-500);
+    margin-bottom:18px;
+    font-weight:400;
+  }
+
+  .footer-col a{
+    display:block;
+    font-size:0.92rem;
+    margin-bottom:10px;
+    color:rgba(244,239,226,0.7);
+    transition:color 0.25s ease;
+  }
+
+  .footer-col a:hover{color:var(--cream);}
+
+  .newsletter-form{
+    display:flex;
+    margin-top:8px;
+    border-bottom:1px solid rgba(244,239,226,0.3);
+    padding-bottom:10px;
+  }
+
+  .newsletter-form input{
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--cream);
+    font-family:'Manrope',sans-serif;
+    font-size:0.92rem;
+    flex:1;
+  }
+
+  .newsletter-form input::placeholder{color:rgba(244,239,226,0.45);}
+
+  .newsletter-form button{
+    background:none;
+    border:none;
+    color:var(--gold-500);
+    font-family:'Space Mono',monospace;
+    font-size:0.78rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    cursor:pointer;
+  }
+
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:30px;
+    font-size:0.82rem;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+
+  .footer-bottom .tide-mini svg{width:120px;height:20px;opacity:0.5;}
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 1024px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-illustration{order:-1;max-width:520px;margin:0 auto;}
+    .search-widget{grid-template-columns:1fr 1fr;}
+    .search-btn{grid-column:1 / -1;}
+    .fleet-grid{grid-template-columns:repeat(2, 1fr);}
+    .itinerary-list{grid-template-columns:repeat(2, 1fr);}
+    .why-grid{grid-template-columns:repeat(2, 1fr);}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+
+  @media (max-width: 720px){
+    .container{padding:0 22px;}
+    .nav-links{
+      position:fixed;
+      top:0;right:0;
+      height:100vh;
+      width:78%;
+      max-width:320px;
+      background:var(--teal-900);
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      gap:28px;
+      padding:40px;
+      transform:translateX(100%);
+      transition:transform 0.4s ease;
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-links a{color:var(--cream) !important;font-size:1.1rem;}
+    .nav-burger{display:flex;}
+    .search-widget{grid-template-columns:1fr;padding:22px;}
+    .fleet-grid{grid-template-columns:1fr;}
+    .itinerary-list{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;gap:36px;}
+    .section{padding:80px 0;}
+    .cta-inner{flex-direction:column;align-items:flex-start;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .tide svg, .houseboat-float, .testi-slide{animation:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="nav-logo">Kayal <span>Houseboats</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#fleet">Fleet</a>
+      <a href="#itinerary">Itinerary</a>
+      <a href="#why">Why Kayal</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#book" class="nav-cta">Check Availability</a>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <div class="container hero-content">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <div class="eyebrow">Alleppey · Kumarakom · Kollam</div>
+        <h1>Where the backwaters <em>slow time</em> down</h1>
+        <p>Private kettuvallam houseboats with home-cooked Kerala meals, sundecks over Vembanad Lake, and a night under the palms — booked end to end, no surprises.</p>
+        <div class="hero-actions">
+          <a href="#book" class="btn btn-primary">Check Availability</a>
+          <a href="#fleet" class="btn btn-ghost">View the Fleet</a>
+        </div>
+      </div>
+
+      <div class="hero-illustration">
+        <svg viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a traditional Kerala houseboat on the backwaters at sunset">
+          <defs>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3E7C6F"/>
+              <stop offset="55%" stop-color="#2A5D53"/>
+              <stop offset="100%" stop-color="#16332E"/>
+            </linearGradient>
+            <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FBE3B4"/>
+              <stop offset="100%" stop-color="#DFA855"/>
+            </radialGradient>
+            <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#234A43"/>
+              <stop offset="100%" stop-color="#11241F"/>
+            </linearGradient>
+          </defs>
+
+          <rect width="600" height="460" rx="28" fill="url(#skyGrad)"/>
+
+          <!-- sun -->
+          <circle cx="300" cy="160" r="58" fill="url(#sunGrad)" opacity="0.92"/>
+
+          <!-- palm trees -->
+          <g opacity="0.55" fill="#102622">
+            <path d="M70 320 C 65 260 95 230 80 200 C 110 220 110 250 100 270 C 130 250 150 230 165 235 C 150 260 120 280 100 290 C 120 285 145 295 150 315 C 120 305 95 310 80 320 Z M75 320 L 88 420 L 82 420 L 70 320 Z"/>
+            <path d="M530 300 C 526 250 550 226 538 200 C 562 218 562 244 553 261 C 578 244 596 228 608 232 C 596 253 571 270 553 279 C 571 274 592 283 596 300 C 571 291 550 296 538 304 Z M533 300 L 543 390 L 538 390 L 528 300 Z" transform="translate(-40,0)"/>
+          </g>
+
+          <!-- water -->
+          <rect x="0" y="300" width="600" height="160" fill="url(#waterGrad)"/>
+          <g stroke="#3E7C6F" stroke-width="2" opacity="0.35" fill="none">
+            <path d="M-20 330 Q 60 320 140 330 T 300 330 T 460 330 T 620 330"/>
+            <path d="M-20 360 Q 60 350 140 360 T 300 360 T 460 360 T 620 360"/>
+            <path d="M-20 392 Q 60 382 140 392 T 300 392 T 460 392 T 620 392"/>
+          </g>
+
+          <!-- reflection -->
+          <ellipse cx="300" cy="312" rx="120" ry="10" fill="#DFA855" opacity="0.18"/>
+
+          <!-- houseboat -->
+          <g class="houseboat-float">
+            <!-- hull -->
+            <path d="M120 320 C 130 300 470 300 480 320 L 460 350 L 140 350 Z" fill="#0E2420"/>
+            <!-- deck base -->
+            <rect x="130" y="280" width="340" height="42" rx="6" fill="#1E4A43"/>
+            <!-- arched coir roof, layered -->
+            <path d="M150 280 C 170 200 430 200 450 280 Z" fill="#BD6F42"/>
+            <path d="M165 280 C 182 220 418 220 435 280 Z" fill="#C97F4F"/>
+            <path d="M182 280 C 198 240 402 240 418 280 Z" fill="#D6925C"/>
+            <!-- rib lines on roof -->
+            <g stroke="#8C4D2C" stroke-width="2" opacity="0.5" fill="none">
+              <path d="M165 280 C 182 220 418 220 435 280"/>
+              <path d="M182 280 C 198 240 402 240 418 280"/>
+              <path d="M200 280 C 215 255 385 255 400 280"/>
+            </g>
+            <!-- windows -->
+            <g fill="#F4EFE2" opacity="0.85">
+              <rect x="200" y="288" width="34" height="24" rx="4"/>
+              <rect x="250" y="288" width="34" height="24" rx="4"/>
+              <rect x="300" y="288" width="34" height="24" rx="4"/>
+              <rect x="350" y="288" width="34" height="24" rx="4"/>
+            </g>
+            <!-- flag pole -->
+            <line x1="300" y1="200" x2="300" y2="170" stroke="#F4EFE2" stroke-width="2"/>
+            <path d="M300 170 L 326 178 L 300 186 Z" fill="#DFA855"/>
+          </g>
+
+          <!-- birds -->
+          <g stroke="#F4EFE2" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7">
+            <path d="M120 90 Q 128 82 136 90 Q 144 82 152 90"/>
+            <path d="M160 70 Q 167 63 174 70 Q 181 63 188 70"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- search widget -->
+    <div class="search-widget" id="book">
+      <div class="field">
+        <label for="destination">Destination</label>
+        <select id="destination">
+          <option>Alleppey · Vembanad Lake</option>
+          <option>Kumarakom Backwaters</option>
+          <option>Kollam · Ashtamudi Lake</option>
+          <option>Munroe Island</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="checkin">Check-in</label>
+        <input type="date" id="checkin">
+      </div>
+      <div class="field">
+        <label for="nights">Nights</label>
+        <select id="nights">
+          <option>1 Night</option>
+          <option>2 Nights</option>
+          <option>3 Nights</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="guests">Guests</label>
+        <select id="guests">
+          <option>2 Guests</option>
+          <option>4 Guests</option>
+          <option>6 Guests</option>
+          <option>8+ Guests</option>
+        </select>
+      </div>
+      <button class="search-btn" id="searchBtn">Find a Houseboat</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TIDE DIVIDER ===================== -->
+<div class="tide" style="background:var(--teal-900);">
+  <svg viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 30 C 50 10 100 50 150 30 C 200 10 250 50 300 30 C 350 10 400 50 450 30 C 500 10 550 50 600 30 C 650 10 700 50 750 30 C 800 10 850 50 900 30 C 950 10 1000 50 1050 30 C 1100 10 1150 50 1200 30 L 1200 60 L 0 60 Z" fill="#F4EFE2"/>
+  </svg>
+</div>
+
+<!-- ===================== FLEET ===================== -->
+<section class="section fleet" id="fleet">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Kettuvallam Collection</div>
+      <h2>Three boats, one tide</h2>
+      <p>Every Kayal houseboat is privately crewed — a captain, a chef, and a deckhand who knows exactly where the water goes quiet at sunset.</p>
+    </div>
+
+    <div class="fleet-grid">
+
+      <!-- Card 1 -->
+      <div class="fleet-card">
+        <div class="fleet-art">
+          <div class="fleet-tag">Vembanad Premium</div>
+          <svg viewBox="0 0 400 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 100 C 40 70 80 100 120 80 C 160 60 200 90 240 75 C 280 60 320 90 360 75 C 380 68 390 80 400 75 L 400 110 L 0 110 Z" fill="#0E2420" opacity="0.6"/>
+            <path d="M60 100 C 80 60 220 60 240 100 Z" fill="#DFA855" opacity="0.9"/>
+            <rect x="75" y="100" width="150" height="14" rx="3" fill="#102622"/>
+          </svg>
+        </div>
+        <div class="fleet-body">
+          <h3>Vembanad Premium</h3>
+          <div class="fleet-route">2 bedrooms · Alleppey to Vembanad Lake</div>
+          <div class="fleet-amenities">
+            <span class="pill">AC Cabins</span>
+            <span class="pill">Private Sundeck</span>
+            <span class="pill">Kerala Meals</span>
+          </div>
+          <div class="fleet-footer">
+            <div class="fleet-price">₹14,500<span>per night</span></div>
+            <a href="#book" class="fleet-link">Reserve</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="fleet-card">
+        <div class="fleet-art">
+          <div class="fleet-tag">Kumarakom Luxury Suite</div>
+          <svg viewBox="0 0 400 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 95 C 40 75 80 100 120 85 C 160 68 200 95 240 80 C 280 65 320 95 360 82 C 380 75 390 85 400 80 L 400 110 L 0 110 Z" fill="#0E2420" opacity="0.6"/>
+            <path d="M50 100 C 75 55 245 55 270 100 Z" fill="#C97F4F" opacity="0.9"/>
+            <rect x="65" y="100" width="195" height="14" rx="3" fill="#102622"/>
+          </svg>
+        </div>
+        <div class="fleet-body">
+          <h3>Kumarakom Luxury Suite</h3>
+          <div class="fleet-route">3 bedrooms · Kumarakom Backwaters loop</div>
+          <div class="fleet-amenities">
+            <span class="pill">AC Cabins</span>
+            <span class="pill">Jacuzzi Deck</span>
+            <span class="pill">Butler Service</span>
+          </div>
+          <div class="fleet-footer">
+            <div class="fleet-price">₹24,900<span>per night</span></div>
+            <a href="#book" class="fleet-link">Reserve</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="fleet-card">
+        <div class="fleet-art">
+          <div class="fleet-tag">Punnamada Family Villa</div>
+          <svg viewBox="0 0 400 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 92 C 40 70 80 98 120 82 C 160 64 200 92 240 78 C 280 62 320 92 360 80 C 380 72 390 82 400 78 L 400 110 L 0 110 Z" fill="#0E2420" opacity="0.6"/>
+            <path d="M40 100 C 70 50 270 50 300 100 Z" fill="#D6925C" opacity="0.9"/>
+            <rect x="55" y="100" width="225" height="14" rx="3" fill="#102622"/>
+          </svg>
+        </div>
+        <div class="fleet-body">
+          <h3>Punnamada Family Villa</h3>
+          <div class="fleet-route">4 bedrooms · Alleppey wide loop</div>
+          <div class="fleet-amenities">
+            <span class="pill">AC Cabins</span>
+            <span class="pill">Kids' Deck</span>
+            <span class="pill">Chef On Board</span>
+          </div>
+          <div class="fleet-footer">
+            <div class="fleet-price">₹32,000<span>per night</span></div>
+            <a href="#book" class="fleet-link">Reserve</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ITINERARY ===================== -->
+<section class="section itinerary" id="itinerary">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">A Day On The Kayal</div>
+      <h2>How a Kayal cruise unfolds</h2>
+      <p>Every booking follows roughly the same rhythm — the only variable is how slowly you let it move.</p>
+    </div>
+  </div>
+  <div class="container" style="padding:0;">
+    <div class="itinerary-list">
+      <div class="itinerary-item">
+        <div class="itinerary-num">01 / Noon</div>
+        <h3>Boarding at the jetty</h3>
+        <p>Step aboard at Alleppey or Kumarakom, settle into your cabin, and watch the crew cast off into Vembanad Lake.</p>
+      </div>
+      <div class="itinerary-item">
+        <div class="itinerary-num">02 / Afternoon</div>
+        <h3>Paddy fields & coir villages</h3>
+        <p>Cruise past coconut groves and below-sea-level paddy fields, with a stop to see coir rope being made by hand.</p>
+      </div>
+      <div class="itinerary-item">
+        <div class="itinerary-num">03 / Evening</div>
+        <h3>Sunset anchor</h3>
+        <p>The boat anchors in a quiet stretch of water for sunset, followed by a candle-lit Kerala thali on deck.</p>
+      </div>
+      <div class="itinerary-item">
+        <div class="itinerary-num">04 / Morning</div>
+        <h3>Sunrise & return</h3>
+        <p>Wake to tea on the sundeck, a light breakfast, and a gentle cruise back to the jetty by mid-morning.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY KAYAL ===================== -->
+<section class="section why" id="why">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Why Kayal</div>
+      <h2>Built around the boat, not the booking</h2>
+      <p>We operate a small, well-maintained fleet ourselves — so the boat in the photos is the boat that arrives.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="16" r="6"/><path d="M10 40c0-7.7 6.3-14 14-14s14 6.3 14 14"/></svg>
+        <h3>Private crew, every trip</h3>
+        <p>A dedicated captain, chef, and deckhand stay with your boat for the full booking — no shared crews, no rushed turnarounds.</p>
+      </div>
+      <div class="why-card">
+        <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 24c4-6 28-6 32 0"/><path d="M12 30h24"/><path d="M16 36h16"/><circle cx="24" cy="14" r="4"/></svg>
+        <h3>Home-cooked Kerala meals</h3>
+        <p>Meals are cooked fresh on board using local fish, vegetables, and spices — breakfast, lunch, evening tea, and dinner included.</p>
+      </div>
+      <div class="why-card">
+        <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="10" width="32" height="22" rx="3"/><path d="M8 32h32v6H8z"/></svg>
+        <h3>AC cabins & open sundecks</h3>
+        <p>Every cabin has air-conditioning and an attached bathroom, with a shared sundeck for the parts of the day you'll want outside.</p>
+      </div>
+      <div class="why-card">
+        <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6c8 6 14 12 14 20a14 14 0 1 1-28 0c0-8 6-14 14-20Z"/></svg>
+        <h3>Eco-certified boats</h3>
+        <p>Our fleet runs on low-emission engines with on-board waste treatment, so the backwaters stay clean for the next crew of travelers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section class="section testimonials" id="reviews">
+  <div class="container">
+    <div class="section-head" style="margin-left:auto;margin-right:auto;text-align:center;">
+      <div class="eyebrow" style="justify-content:center;">Reviews</div>
+      <h2>From the visitors' book</h2>
+    </div>
+
+    <div class="testi-wrap">
+      <div class="testi-slide active">
+        <p class="testi-quote">"The sunset anchor spot was completely silent except for the water against the hull. Dinner appeared on the deck like it had cooked itself."</p>
+        <div class="testi-author">— Meera R., Bengaluru</div>
+      </div>
+      <div class="testi-slide">
+        <p class="testi-quote">"We booked the Family Villa for eight of us and every cabin was genuinely cool and clean. The kids spent the whole evening on the sundeck."</p>
+        <div class="testi-author">— Daniel P., London</div>
+      </div>
+      <div class="testi-slide">
+        <p class="testi-quote">"Our captain pointed out a kingfisher diving off the bow before we'd even noticed the bird. Small details like that made the trip."</p>
+        <div class="testi-author">— Aisha K., Delhi</div>
+      </div>
+
+      <div class="testi-dots">
+        <button class="testi-dot active" data-index="0" aria-label="Show review 1"></button>
+        <button class="testi-dot" data-index="1" aria-label="Show review 2"></button>
+        <button class="testi-dot" data-index="2" aria-label="Show review 3"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="section cta">
+  <div class="container cta-inner">
+    <div>
+      <h2>Ready to drift?</h2>
+      <p>Pick your dates above and we'll match you to the right boat — or send us your travel dates and we'll hold a cabin while you decide.</p>
+    </div>
+    <a href="#book" class="btn btn-primary">Check Availability</a>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Kayal Houseboats</div>
+        <p>A small operator running a small fleet of kettuvallam houseboats across Alleppey, Kumarakom, and Kollam — privately crewed, eco-certified, and booked direct.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Destinations</h4>
+        <a href="#">Alleppey</a>
+        <a href="#">Kumarakom</a>
+        <a href="#">Kollam</a>
+        <a href="#">Munroe Island</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#fleet">The Fleet</a>
+        <a href="#itinerary">Itinerary</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Stay in the loop</h4>
+        <p>Seasonal availability and backwater notes, a few times a year.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault();">
+          <input type="email" placeholder="you@example.com" required>
+          <button type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Kayal Houseboats. All rights reserved.</span>
+      <div class="tide-mini">
+        <svg viewBox="0 0 240 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 10 C 10 2 20 18 30 10 C 40 2 50 18 60 10 C 70 2 80 18 90 10 C 100 2 110 18 120 10 C 130 2 140 18 150 10 C 160 2 170 18 180 10 C 190 2 200 18 210 10 C 220 2 230 18 240 10" fill="none" stroke="#DFA855" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile menu
+  const burger = document.getElementById('navBurger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // Testimonial carousel
+  const slides = document.querySelectorAll('.testi-slide');
+  const dots = document.querySelectorAll('.testi-dot');
+  let current = 0;
+  function showSlide(i){
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+    current = i;
+  }
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => showSlide(parseInt(dot.dataset.index)));
+  });
+  setInterval(() => showSlide((current + 1) % slides.length), 6000);
+
+  // Default check-in date to today
+  const checkin = document.getElementById('checkin');
+  if (checkin) {
+    const today = new Date().toISOString().split('T')[0];
+    checkin.min = today;
+    checkin.value = today;
+  }
+
+  // Search button feedback
+  document.getElementById('searchBtn').addEventListener('click', () => {
+    const dest = document.getElementById('destination').value;
+    alert('Searching availability for ' + dest + ' — booking flow coming soon!');
+  });
+</script>
+
+</body>
+</html>
