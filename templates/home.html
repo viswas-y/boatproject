@@ -1,1243 +1,871 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kayal Houseboats — Backwater Cruises in Kerala</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --cream:#F4EFE2;
-    --cream-deep:#E9E0CB;
-    --teal-900:#16332E;
-    --teal-700:#234A43;
-    --teal-500:#3E7C6F;
-    --teal-300:#86B0A6;
-    --gold-500:#DFA855;
-    --gold-700:#C2853B;
-    --clay-500:#BD6F42;
-    --ink:#1C2420;
-    --ink-soft:#5B6A64;
-    --line:rgba(22,51,46,0.12);
-    --shadow:0 20px 50px -25px rgba(22,51,46,0.45);
-    --radius-lg:28px;
-    --radius-md:18px;
-    --radius-sm:10px;
-  }
-
-  *{margin:0;padding:0;box-sizing:border-box;}
-
-  html{scroll-behavior:smooth;}
-
-  body{
-    font-family:'Manrope',sans-serif;
-    background:var(--cream);
-    color:var(--ink);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  img,svg{display:block;max-width:100%;}
-
-  a{color:inherit;text-decoration:none;}
-
-  .eyebrow{
-    font-family:'Space Mono',monospace;
-    font-size:0.78rem;
-    letter-spacing:0.22em;
-    text-transform:uppercase;
-    color:var(--gold-700);
-    display:flex;
-    align-items:center;
-    gap:0.6rem;
-  }
-
-  .eyebrow::before{
-    content:"";
-    display:inline-block;
-    width:28px;
-    height:1px;
-    background:var(--gold-700);
-  }
-
-  h1,h2,h3,h4{
-    font-family:'Fraunces',serif;
-    font-weight:600;
-    letter-spacing:-0.01em;
-    color:var(--teal-900);
-  }
-
-  .container{
-    max-width:1240px;
-    margin:0 auto;
-    padding:0 32px;
-  }
-
-  /* ===================== NAV ===================== */
-  .nav{
-    position:fixed;
-    top:0;left:0;right:0;
-    z-index:100;
-    padding:22px 0;
-    transition:background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
-  }
-
-  .nav-inner{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-  }
-
-  .nav-logo{
-    font-family:'Fraunces',serif;
-    font-size:1.45rem;
-    font-weight:600;
-    color:var(--cream);
-    letter-spacing:0.01em;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-
-  .nav-logo span{
-    font-family:'Space Mono',monospace;
-    font-size:0.65rem;
-    letter-spacing:0.25em;
-    color:var(--gold-500);
-    border:1px solid rgba(223,168,85,0.5);
-    padding:3px 7px;
-    border-radius:99px;
-    text-transform:uppercase;
-  }
-
-  .nav-links{
-    display:flex;
-    gap:38px;
-    align-items:center;
-  }
-
-  .nav-links a{
-    font-size:0.92rem;
-    color:var(--cream);
-    opacity:0.85;
-    transition:opacity 0.25s ease;
-    position:relative;
-  }
-
-  .nav-links a:hover{opacity:1;}
-
-  .nav-cta{
-    font-family:'Space Mono',monospace;
-    font-size:0.78rem;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--teal-900) !important;
-    background:var(--gold-500);
-    padding:11px 22px;
-    border-radius:99px;
-    opacity:1 !important;
-    transition:background 0.25s ease, transform 0.25s ease;
-  }
-
-  .nav-cta:hover{background:var(--cream);transform:translateY(-1px);}
-
-  .nav-burger{
-    display:none;
-    flex-direction:column;
-    gap:5px;
-    background:none;
-    border:none;
-    cursor:pointer;
-    padding:6px;
-  }
-
-  .nav-burger span{
-    width:24px;height:2px;background:var(--cream);border-radius:2px;
-    transition:background 0.3s ease;
-  }
-
-  .nav.scrolled{
-    background:rgba(244,239,226,0.92);
-    backdrop-filter:blur(14px);
-    box-shadow:0 8px 30px -20px rgba(22,51,46,0.4);
-    padding:14px 0;
-  }
-
-  .nav.scrolled .nav-logo,
-  .nav.scrolled .nav-links a{color:var(--teal-900);}
-  .nav.scrolled .nav-cta{color:var(--teal-900) !important;}
-  .nav.scrolled .nav-burger span{background:var(--teal-900);}
-
-  /* ===================== HERO ===================== */
-  .hero{
-    position:relative;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    overflow:hidden;
-    background:linear-gradient(180deg, #1E4A43 0%, #16332E 55%, #102622 100%);
-    padding-top:120px;
-    padding-bottom:60px;
-  }
-
-  .hero-bg{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    z-index:0;
-  }
-
-  .hero-content{
-    position:relative;
-    z-index:2;
-    width:100%;
-  }
-
-  .hero-grid{
-    display:grid;
-    grid-template-columns:1.05fr 0.95fr;
-    gap:60px;
-    align-items:center;
-  }
-
-  .hero-text .eyebrow{color:var(--gold-500);}
-  .hero-text .eyebrow::before{background:var(--gold-500);}
-
-  .hero-text h1{
-    color:var(--cream);
-    font-size:clamp(2.6rem, 5.2vw, 4.4rem);
-    line-height:1.06;
-    margin:22px 0 22px;
-  }
-
-  .hero-text h1 em{
-    font-style:italic;
-    color:var(--gold-500);
-  }
-
-  .hero-text p{
-    color:rgba(244,239,226,0.78);
-    font-size:1.08rem;
-    max-width:480px;
-    margin-bottom:34px;
-  }
-
-  .hero-actions{
-    display:flex;
-    gap:16px;
-    flex-wrap:wrap;
-  }
-
-  .btn{
-    font-family:'Space Mono',monospace;
-    font-size:0.8rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    padding:16px 30px;
-    border-radius:99px;
-    border:1px solid transparent;
-    cursor:pointer;
-    transition:transform 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-  }
-
-  .btn-primary{
-    background:var(--gold-500);
-    color:var(--teal-900);
-  }
-  .btn-primary:hover{transform:translateY(-2px);background:var(--cream);}
-
-  .btn-ghost{
-    background:transparent;
-    color:var(--cream);
-    border-color:rgba(244,239,226,0.35);
-  }
-  .btn-ghost:hover{border-color:var(--cream);transform:translateY(-2px);}
-
-  .hero-illustration{
-    position:relative;
-  }
-
-  .hero-illustration svg{
-    width:100%;
-    height:auto;
-  }
-
-  .houseboat-float{
-    animation:floatBoat 6s ease-in-out infinite;
-    transform-origin:center;
-  }
-
-  @keyframes floatBoat{
-    0%,100%{transform:translateY(0px);}
-    50%{transform:translateY(-10px);}
-  }
-
-  /* ===================== SEARCH WIDGET ===================== */
-  .search-widget{
-    position:relative;
-    z-index:3;
-    margin-top:54px;
-    background:var(--cream);
-    border-radius:var(--radius-lg);
-    box-shadow:var(--shadow);
-    padding:28px;
-    display:grid;
-    grid-template-columns:1.2fr 1fr 1fr 0.8fr auto;
-    gap:18px;
-    align-items:end;
-  }
-
-  .field{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-  }
-
-  .field label{
-    font-family:'Space Mono',monospace;
-    font-size:0.68rem;
-    letter-spacing:0.18em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-  }
-
-  .field select,
-  .field input{
-    font-family:'Manrope',sans-serif;
-    font-size:0.96rem;
-    font-weight:600;
-    color:var(--teal-900);
-    border:none;
-    background:transparent;
-    border-bottom:2px solid var(--line);
-    padding:6px 0 10px;
-    outline:none;
-    transition:border-color 0.25s ease;
-    appearance:none;
-  }
-
-  .field select:focus,
-  .field input:focus{border-color:var(--gold-700);}
-
-  .search-btn{
-    background:var(--teal-900);
-    color:var(--cream);
-    border:none;
-    border-radius:var(--radius-md);
-    padding:18px 26px;
-    font-family:'Space Mono',monospace;
-    font-size:0.8rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    cursor:pointer;
-    transition:background 0.25s ease, transform 0.25s ease;
-    white-space:nowrap;
-  }
-
-  .search-btn:hover{background:var(--gold-700);color:var(--teal-900);transform:translateY(-2px);}
-
-  /* ===================== TIDE DIVIDER ===================== */
-  .tide{
-    position:relative;
-    width:100%;
-    height:64px;
-    overflow:hidden;
-    line-height:0;
-  }
-
-  .tide svg{
-    position:absolute;
-    width:200%;
-    height:100%;
-    animation:driftWave 36s linear infinite;
-  }
-
-  @keyframes driftWave{
-    from{transform:translateX(0);}
-    to{transform:translateX(-50%);}
-  }
-
-  /* ===================== SECTION GENERAL ===================== */
-  .section{
-    padding:120px 0;
-  }
-
-  .section-head{
-    max-width:640px;
-    margin-bottom:64px;
-  }
-
-  .section-head h2{
-    font-size:clamp(2rem, 3.6vw, 3rem);
-    margin-top:18px;
-    line-height:1.15;
-  }
-
-  .section-head p{
-    margin-top:18px;
-    color:var(--ink-soft);
-    font-size:1.05rem;
-    max-width:520px;
-  }
-
-  /* ===================== FLEET ===================== */
-  .fleet{
-    background:var(--cream);
-  }
-
-  .fleet-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:28px;
-  }
-
-  .fleet-card{
-    background:#fff;
-    border-radius:var(--radius-lg);
-    overflow:hidden;
-    box-shadow:var(--shadow);
-    transition:transform 0.35s ease, box-shadow 0.35s ease;
-    display:flex;
-    flex-direction:column;
-  }
-
-  .fleet-card:hover{
-    transform:translateY(-8px);
-  }
-
-  .fleet-art{
-    background:linear-gradient(160deg, var(--teal-500) 0%, var(--teal-900) 100%);
-    padding:36px 28px 20px;
-    position:relative;
-    height:190px;
-  }
-
-  .fleet-art svg{position:absolute;bottom:0;left:0;width:100%;}
-
-  .fleet-tag{
-    font-family:'Space Mono',monospace;
-    font-size:0.68rem;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-    color:var(--gold-500);
-    position:relative;
-    z-index:2;
-  }
-
-  .fleet-body{
-    padding:26px 28px 30px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    flex:1;
-  }
-
-  .fleet-body h3{
-    font-size:1.4rem;
-  }
-
-  .fleet-route{
-    font-size:0.9rem;
-    color:var(--ink-soft);
-  }
-
-  .fleet-amenities{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:4px;
-  }
-
-  .pill{
-    font-size:0.74rem;
-    font-family:'Space Mono',monospace;
-    letter-spacing:0.04em;
-    color:var(--teal-700);
-    background:var(--cream-deep);
-    border-radius:99px;
-    padding:6px 12px;
-  }
-
-  .fleet-footer{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-top:auto;
-    padding-top:18px;
-    border-top:1px solid var(--line);
-  }
-
-  .fleet-price{
-    font-family:'Fraunces',serif;
-    font-size:1.5rem;
-    font-weight:600;
-    color:var(--teal-900);
-  }
-
-  .fleet-price span{
-    font-family:'Space Mono',monospace;
-    font-size:0.7rem;
-    color:var(--ink-soft);
-    font-weight:400;
-    display:block;
-    margin-top:2px;
-    letter-spacing:0.08em;
-  }
-
-  .fleet-link{
-    font-family:'Space Mono',monospace;
-    font-size:0.78rem;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--teal-900);
-    border-bottom:1px solid var(--teal-900);
-    padding-bottom:3px;
-    transition:color 0.25s ease, border-color 0.25s ease;
-  }
-
-  .fleet-link:hover{color:var(--gold-700);border-color:var(--gold-700);}
-
-  /* ===================== ITINERARY ===================== */
-  .itinerary{
-    background:var(--teal-900);
-    color:var(--cream);
-  }
-
-  .itinerary .section-head h2,
-  .itinerary .section-head .eyebrow{color:var(--cream);}
-  .itinerary .section-head .eyebrow{color:var(--gold-500);}
-  .itinerary .section-head .eyebrow::before{background:var(--gold-500);}
-  .itinerary .section-head p{color:rgba(244,239,226,0.7);}
-
-  .itinerary-list{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:0;
-    border-top:1px solid rgba(244,239,226,0.14);
-  }
-
-  .itinerary-item{
-    padding:36px 28px;
-    border-right:1px solid rgba(244,239,226,0.14);
-    border-bottom:1px solid rgba(244,239,226,0.14);
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    min-height:230px;
-  }
-
-  .itinerary-item:last-child{border-right:none;}
-
-  .itinerary-num{
-    font-family:'Space Mono',monospace;
-    font-size:0.85rem;
-    color:var(--gold-500);
-    letter-spacing:0.1em;
-  }
-
-  .itinerary-item h3{
-    color:var(--cream);
-    font-size:1.25rem;
-    line-height:1.25;
-  }
-
-  .itinerary-item p{
-    color:rgba(244,239,226,0.65);
-    font-size:0.92rem;
-  }
-
-  /* ===================== WHY KAYAL ===================== */
-  .why{
-    background:var(--cream-deep);
-  }
-
-  .why-grid{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:28px;
-  }
-
-  .why-card{
-    background:var(--cream);
-    border-radius:var(--radius-md);
-    padding:32px 26px;
-    border:1px solid var(--line);
-  }
-
-  .why-card .icon{
-    width:46px;height:46px;
-    margin-bottom:20px;
-    color:var(--clay-500);
-  }
-
-  .why-card h3{
-    font-size:1.1rem;
-    margin-bottom:10px;
-  }
-
-  .why-card p{
-    font-size:0.92rem;
-    color:var(--ink-soft);
-  }
-
-  /* ===================== TESTIMONIALS ===================== */
-  .testimonials{
-    background:var(--cream);
-  }
-
-  .testi-wrap{
-    position:relative;
-    max-width:760px;
-    margin:0 auto;
-    text-align:center;
-  }
-
-  .testi-slide{
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    gap:24px;
-    animation:fadeIn 0.6s ease;
-  }
-
-  .testi-slide.active{display:flex;}
-
-  @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-
-  .testi-quote{
-    font-family:'Fraunces',serif;
-    font-size:clamp(1.3rem, 2.4vw, 1.8rem);
-    font-style:italic;
-    color:var(--teal-900);
-    line-height:1.5;
-  }
-
-  .testi-author{
-    font-family:'Space Mono',monospace;
-    font-size:0.78rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-  }
-
-  .testi-dots{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    margin-top:40px;
-  }
-
-  .testi-dot{
-    width:10px;height:10px;
-    border-radius:50%;
-    background:var(--line);
-    border:none;
-    cursor:pointer;
-    transition:background 0.25s ease;
-  }
-
-  .testi-dot.active{background:var(--gold-700);}
-
-  /* ===================== CTA ===================== */
-  .cta{
-    background:linear-gradient(135deg, var(--teal-700) 0%, var(--teal-900) 100%);
-    color:var(--cream);
-    position:relative;
-    overflow:hidden;
-  }
-
-  .cta-inner{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:40px;
-    flex-wrap:wrap;
-  }
-
-  .cta-inner h2{color:var(--cream);font-size:clamp(1.8rem, 3.6vw, 2.6rem);max-width:520px;}
-  .cta-inner p{color:rgba(244,239,226,0.7);margin-top:14px;max-width:460px;}
-
-  /* ===================== FOOTER ===================== */
-  footer{
-    background:var(--teal-900);
-    color:rgba(244,239,226,0.7);
-    padding:80px 0 30px;
-  }
-
-  .footer-grid{
-    display:grid;
-    grid-template-columns:1.4fr 1fr 1fr 1.2fr;
-    gap:48px;
-    padding-bottom:60px;
-    border-bottom:1px solid rgba(244,239,226,0.12);
-  }
-
-  .footer-logo{
-    font-family:'Fraunces',serif;
-    font-size:1.6rem;
-    color:var(--cream);
-    margin-bottom:16px;
-  }
-
-  .footer-grid p{font-size:0.92rem;max-width:280px;}
-
-  .footer-col h4{
-    font-family:'Space Mono',monospace;
-    font-size:0.74rem;
-    letter-spacing:0.18em;
-    text-transform:uppercase;
-    color:var(--gold-500);
-    margin-bottom:18px;
-    font-weight:400;
-  }
-
-  .footer-col a{
-    display:block;
-    font-size:0.92rem;
-    margin-bottom:10px;
-    color:rgba(244,239,226,0.7);
-    transition:color 0.25s ease;
-  }
-
-  .footer-col a:hover{color:var(--cream);}
-
-  .newsletter-form{
-    display:flex;
-    margin-top:8px;
-    border-bottom:1px solid rgba(244,239,226,0.3);
-    padding-bottom:10px;
-  }
-
-  .newsletter-form input{
-    background:transparent;
-    border:none;
-    outline:none;
-    color:var(--cream);
-    font-family:'Manrope',sans-serif;
-    font-size:0.92rem;
-    flex:1;
-  }
-
-  .newsletter-form input::placeholder{color:rgba(244,239,226,0.45);}
-
-  .newsletter-form button{
-    background:none;
-    border:none;
-    color:var(--gold-500);
-    font-family:'Space Mono',monospace;
-    font-size:0.78rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    cursor:pointer;
-  }
-
-  .footer-bottom{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding-top:30px;
-    font-size:0.82rem;
-    flex-wrap:wrap;
-    gap:14px;
-  }
-
-  .footer-bottom .tide-mini svg{width:120px;height:20px;opacity:0.5;}
-
-  /* ===================== RESPONSIVE ===================== */
-  @media (max-width: 1024px){
-    .hero-grid{grid-template-columns:1fr;}
-    .hero-illustration{order:-1;max-width:520px;margin:0 auto;}
-    .search-widget{grid-template-columns:1fr 1fr;}
-    .search-btn{grid-column:1 / -1;}
-    .fleet-grid{grid-template-columns:repeat(2, 1fr);}
-    .itinerary-list{grid-template-columns:repeat(2, 1fr);}
-    .why-grid{grid-template-columns:repeat(2, 1fr);}
-    .footer-grid{grid-template-columns:1fr 1fr;}
-  }
-
-  @media (max-width: 720px){
-    .container{padding:0 22px;}
-    .nav-links{
-      position:fixed;
-      top:0;right:0;
-      height:100vh;
-      width:78%;
-      max-width:320px;
-      background:var(--teal-900);
-      flex-direction:column;
-      justify-content:center;
-      align-items:flex-start;
-      gap:28px;
-      padding:40px;
-      transform:translateX(100%);
-      transition:transform 0.4s ease;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LagoonNest — Kerala Houseboat Stays</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep:   #1a4031;
+      --green-mid:    #2d6a4f;
+      --green-light:  #52b788;
+      --green-pale:   #d8f3dc;
+      --green-mist:   #f0faf3;
+      --white:        #ffffff;
+      --off-white:    #f8fdf9;
+      --text-dark:    #0d1f19;
+      --text-mid:     #3a5244;
+      --text-light:   #6b8f7a;
+      --gold:         #c9a84c;
+      --radius:       16px;
+      --shadow:       0 8px 40px rgba(26,64,49,.10);
     }
-    .nav-links.open{transform:translateX(0);}
-    .nav-links a{color:var(--cream) !important;font-size:1.1rem;}
-    .nav-burger{display:flex;}
-    .search-widget{grid-template-columns:1fr;padding:22px;}
-    .fleet-grid{grid-template-columns:1fr;}
-    .itinerary-list{grid-template-columns:1fr;}
-    .why-grid{grid-template-columns:1fr;}
-    .footer-grid{grid-template-columns:1fr;gap:36px;}
-    .section{padding:80px 0;}
-    .cta-inner{flex-direction:column;align-items:flex-start;}
-  }
 
-  @media (prefers-reduced-motion: reduce){
-    .tide svg, .houseboat-float, .testi-slide{animation:none !important;}
-    html{scroll-behavior:auto;}
-  }
-</style>
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ──────────────── NAV ──────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6%; height: 72px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(82,183,136,.18);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 600;
+      color: var(--green-deep);
+      text-decoration: none;
+      letter-spacing: .02em;
+    }
+    .nav-logo span { color: var(--green-light); }
+
+    .nav-links {
+      display: flex; gap: 2.4rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: .92rem; font-weight: 500;
+      color: var(--text-mid); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green-light); }
+
+    .nav-cta {
+      background: var(--green-mid); color: #fff;
+      padding: .52rem 1.4rem; border-radius: 50px;
+      font-size: .88rem; font-weight: 600;
+      text-decoration: none; transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: var(--green-deep); transform: translateY(-1px); }
+
+    /* ──────────────── HERO ──────────────── */
+    #home {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; padding-top: 72px;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(160deg, rgba(26,64,49,.72) 0%, rgba(13,31,25,.45) 60%, transparent 100%),
+        url('https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=1600&q=80') center/cover no-repeat;
+    }
+
+    /* ripple water decoration */
+    .hero-bg::after {
+      content:''; position:absolute; bottom: 0; left:0; right:0; height:160px;
+      background: linear-gradient(to top, var(--white), transparent);
+    }
+
+    .hero-content {
+      position: relative; text-align: center; color: #fff;
+      max-width: 780px; padding: 0 5%;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: .8rem; font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--green-pale);
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.25);
+      padding: .36rem 1.1rem; border-radius: 50px;
+      margin-bottom: 1.6rem; backdrop-filter: blur(6px);
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 5.4rem);
+      font-weight: 600; line-height: 1.08;
+      margin-bottom: 1.4rem;
+    }
+    .hero-title em { font-style: italic; color: var(--green-pale); }
+
+    .hero-sub {
+      font-size: 1.08rem; font-weight: 300; line-height: 1.7;
+      color: rgba(255,255,255,.85); margin-bottom: 2.6rem;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--green-light); color: var(--green-deep);
+      padding: .85rem 2.2rem; border-radius: 50px; font-weight: 600;
+      font-size: 1rem; text-decoration: none;
+      transition: background .2s, transform .15s; box-shadow: 0 4px 20px rgba(82,183,136,.4);
+    }
+    .btn-primary:hover { background: var(--white); transform: translateY(-2px); }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,.55); color: #fff;
+      padding: .85rem 2.2rem; border-radius: 50px; font-weight: 500;
+      font-size: 1rem; text-decoration: none;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,.12); }
+
+    /* floating stats bar */
+    .hero-stats {
+      position: relative; margin: 0 auto; margin-top: 4rem;
+      max-width: 700px; display: flex; gap: 0;
+      background: rgba(255,255,255,.96);
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .stat-item {
+      flex: 1; padding: 1.4rem 1rem; text-align: center;
+      border-right: 1px solid var(--green-pale);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 600; color: var(--green-mid);
+    }
+    .stat-lbl {
+      font-size: .78rem; color: var(--text-light); font-weight: 500;
+      margin-top: .2rem; letter-spacing: .04em;
+    }
+
+    /* ──────────────── SECTION BASE ──────────────── */
+    section { padding: 90px 6%; }
+    .section-tag {
+      font-size: .78rem; font-weight: 600; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--green-light);
+      margin-bottom: .8rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 600;
+      color: var(--green-deep); line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      font-size: 1rem; color: var(--text-light); line-height: 1.7;
+      max-width: 540px;
+    }
+
+    /* ──────────────── ABOUT ──────────────── */
+    #about { background: var(--off-white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center; max-width: 1200px; margin: 0 auto;
+    }
+    .about-imgs {
+      position: relative; height: 520px;
+    }
+    .about-img-main {
+      width: 78%; height: 420px; object-fit: cover;
+      border-radius: var(--radius);
+      position: absolute; top: 0; left: 0;
+      box-shadow: var(--shadow);
+    }
+    .about-img-small {
+      width: 52%; height: 230px; object-fit: cover;
+      border-radius: var(--radius);
+      position: absolute; bottom: 0; right: 0;
+      box-shadow: var(--shadow);
+      border: 5px solid var(--white);
+    }
+    .about-badge {
+      position: absolute; top: 200px; right: 30px;
+      background: var(--green-mid); color: #fff;
+      border-radius: var(--radius); padding: 1rem 1.2rem;
+      font-size: .82rem; font-weight: 600; text-align: center;
+      box-shadow: 0 6px 24px rgba(45,106,79,.35);
+    }
+    .about-badge strong { display: block; font-size: 1.6rem; font-family:'Cormorant Garamond',serif; }
+
+    .about-text { padding: 1rem 0; }
+    .about-text .section-sub { max-width: 100%; margin-bottom: 1.6rem; }
+    .about-features { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+    .about-features li {
+      display: flex; align-items: flex-start; gap: .75rem;
+      font-size: .95rem; color: var(--text-mid);
+    }
+    .about-features li::before {
+      content: '✦'; color: var(--green-light); font-size: .75rem;
+      margin-top: 4px; flex-shrink: 0;
+    }
+
+    /* ──────────────── BOOKING ──────────────── */
+    #booking { background: var(--white); }
+    .booking-inner { max-width: 1200px; margin: 0 auto; }
+    .booking-header { text-align: center; margin-bottom: 3.5rem; }
+    .booking-header .section-sub { margin: 0 auto; }
+
+    .boats-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .boat-card {
+      border-radius: var(--radius); overflow: hidden;
+      background: var(--off-white);
+      box-shadow: 0 4px 20px rgba(26,64,49,.07);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .boat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+
+    .boat-img { width: 100%; height: 230px; object-fit: cover; display: block; }
+
+    .boat-body { padding: 1.5rem 1.4rem; }
+    .boat-tag {
+      font-size: .72rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--green-light);
+      margin-bottom: .5rem;
+    }
+    .boat-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600; color: var(--green-deep);
+      margin-bottom: .6rem;
+    }
+    .boat-desc { font-size: .88rem; color: var(--text-light); line-height: 1.6; margin-bottom: 1.2rem; }
+    .boat-amenities { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+    .amenity-pill {
+      background: var(--green-pale); color: var(--green-mid);
+      font-size: .72rem; font-weight: 600; padding: .28rem .72rem;
+      border-radius: 50px;
+    }
+    .boat-footer { display: flex; align-items: center; justify-content: space-between; }
+    .boat-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600; color: var(--green-deep);
+    }
+    .boat-price span { font-size: .8rem; font-family: 'DM Sans',sans-serif; color: var(--text-light); }
+    .boat-btn {
+      background: var(--green-mid); color: #fff;
+      padding: .52rem 1.2rem; border-radius: 50px;
+      font-size: .84rem; font-weight: 600; text-decoration: none;
+      transition: background .2s;
+    }
+    .boat-btn:hover { background: var(--green-deep); }
+
+    /* booking form */
+    .booking-form-wrap {
+      background: var(--green-deep); border-radius: 24px;
+      padding: 3rem 3.5rem; color: #fff;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
+    }
+    .form-intro h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; margin-bottom: .8rem;
+    }
+    .form-intro p { font-size: .9rem; color: var(--green-pale); line-height: 1.7; }
+
+    .booking-fields { display: flex; flex-direction: column; gap: 1rem; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field label { display: block; font-size: .78rem; font-weight: 600; letter-spacing: .08em; margin-bottom: .4rem; color: var(--green-pale); }
+    .field input, .field select {
+      width: 100%; background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.18);
+      border-radius: 10px; padding: .72rem 1rem; color: #fff; font-size: .92rem;
+      font-family: 'DM Sans',sans-serif; outline: none;
+      transition: border-color .2s;
+    }
+    .field input::placeholder { color: rgba(255,255,255,.4); }
+    .field input:focus, .field select:focus { border-color: var(--green-light); }
+    .field select option { background: var(--green-deep); }
+
+    .form-submit {
+      background: var(--green-light); color: var(--green-deep);
+      border: none; border-radius: 50px;
+      padding: .9rem 2.5rem; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: background .2s, transform .15s;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--white); transform: translateY(-2px); }
+
+    /* ──────────────── KAYAKING ──────────────── */
+    #kayaking { background: var(--green-mist); }
+    .kayak-inner { max-width: 1200px; margin: 0 auto; }
+    .kayak-header { margin-bottom: 3.5rem; }
+
+    .kayak-grid {
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start;
+    }
+    .kayak-img-wrap { position: relative; }
+    .kayak-main-img {
+      width: 100%; height: 440px; object-fit: cover;
+      border-radius: var(--radius); box-shadow: var(--shadow);
+    }
+    .kayak-badge {
+      position: absolute; bottom: 24px; left: 24px;
+      background: var(--white); border-radius: 14px;
+      padding: 1rem 1.4rem; box-shadow: var(--shadow);
+      display: flex; align-items: center; gap: .9rem;
+    }
+    .kayak-badge-icon { font-size: 2rem; }
+    .kayak-badge-text strong { display: block; color: var(--green-deep); font-size: .95rem; }
+    .kayak-badge-text span { color: var(--text-light); font-size: .78rem; }
+
+    .kayak-packages { display: flex; flex-direction: column; gap: 1.2rem; }
+    .kayak-card {
+      background: var(--white); border-radius: 14px; padding: 1.4rem 1.5rem;
+      border-left: 4px solid var(--green-light); box-shadow: 0 2px 12px rgba(26,64,49,.06);
+      transition: box-shadow .2s;
+    }
+    .kayak-card:hover { box-shadow: var(--shadow); }
+    .kayak-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; }
+    .kayak-card-name { font-family:'Cormorant Garamond',serif; font-size: 1.2rem; font-weight: 600; color: var(--green-deep); }
+    .kayak-card-price { font-weight: 700; color: var(--green-mid); font-size: .95rem; }
+    .kayak-card-desc { font-size: .86rem; color: var(--text-light); line-height: 1.6; margin-bottom: .9rem; }
+    .kayak-card-tags { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .kayak-tag {
+      background: var(--green-pale); color: var(--green-mid);
+      font-size: .7rem; font-weight: 600; padding: .22rem .65rem; border-radius: 50px;
+    }
+
+    /* ──────────────── GALLERY ──────────────── */
+    .gallery-strip {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem;
+      margin-top: 2rem;
+    }
+    .gallery-strip img {
+      width: 100%; height: 200px; object-fit: cover;
+      border-radius: 12px; transition: transform .3s;
+    }
+    .gallery-strip img:hover { transform: scale(1.04); }
+
+    /* ──────────────── CONTACT ──────────────── */
+    #contact { background: var(--white); }
+    .contact-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start;
+    }
+    .contact-info h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; color: var(--green-deep); margin-bottom: 1rem;
+    }
+    .contact-info p { font-size: .95rem; color: var(--text-light); line-height: 1.7; margin-bottom: 2rem; }
+
+    .contact-details { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .contact-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--green-pale); color: var(--green-mid);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .contact-item-text strong { display: block; font-size: .88rem; color: var(--green-deep); margin-bottom: .2rem; }
+    .contact-item-text span { font-size: .88rem; color: var(--text-light); }
+
+    .contact-form { background: var(--off-white); border-radius: 20px; padding: 2.5rem; }
+    .contact-form h3 { font-family:'Cormorant Garamond',serif; font-size: 1.6rem; color: var(--green-deep); margin-bottom: 1.5rem; }
+    .cf-field { margin-bottom: 1.1rem; }
+    .cf-field label { display: block; font-size: .8rem; font-weight: 600; color: var(--text-mid); margin-bottom: .4rem; }
+    .cf-field input, .cf-field textarea {
+      width: 100%; border: 1.5px solid #d8ede2; border-radius: 10px;
+      padding: .72rem 1rem; font-size: .92rem; font-family:'DM Sans',sans-serif;
+      outline: none; transition: border-color .2s; background: var(--white);
+    }
+    .cf-field input:focus, .cf-field textarea:focus { border-color: var(--green-light); }
+    .cf-field textarea { height: 120px; resize: vertical; }
+    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .cf-submit {
+      background: var(--green-mid); color: #fff; border: none; border-radius: 50px;
+      padding: .85rem 2.2rem; font-size: .95rem; font-weight: 600;
+      cursor: pointer; transition: background .2s, transform .15s; width: 100%;
+    }
+    .cf-submit:hover { background: var(--green-deep); transform: translateY(-1px); }
+
+    /* ──────────────── FOOTER ──────────────── */
+    footer {
+      background: var(--green-deep); color: rgba(255,255,255,.75);
+      padding: 3rem 6% 2rem;
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,.12);
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .footer-brand .nav-logo { color: var(--green-pale); }
+    .footer-brand p { font-size: .85rem; margin-top: .6rem; max-width: 240px; line-height: 1.6; }
+    .footer-links h4 { color: #fff; font-size: .82rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: .9rem; }
+    .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .footer-links a { font-size: .87rem; color: rgba(255,255,255,.6); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--green-light); }
+    .footer-bottom { text-align: center; padding-top: 1.5rem; font-size: .8rem; }
+
+    /* ──────────────── RESPONSIVE ──────────────── */
+    @media (max-width: 900px) {
+      .boats-grid { grid-template-columns: 1fr 1fr; }
+      .about-grid, .kayak-grid, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-imgs { height: 380px; }
+      .booking-form-wrap { grid-template-columns: 1fr; padding: 2rem; }
+      .field-row { grid-template-columns: 1fr; }
+      .gallery-strip { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 600px) {
+      .boats-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero-title { font-size: 2.6rem; }
+      .hero-stats { flex-direction: column; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--green-pale); }
+      .stat-item:last-child { border-bottom: none; }
+      section { padding: 60px 5%; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ===================== NAV ===================== -->
-<nav class="nav" id="nav">
-  <div class="container nav-inner">
-    <a href="#top" class="nav-logo">Kayal <span>Houseboats</span></a>
-    <div class="nav-links" id="navLinks">
-      <a href="#fleet">Fleet</a>
-      <a href="#itinerary">Itinerary</a>
-      <a href="#why">Why Kayal</a>
-      <a href="#reviews">Reviews</a>
-      <a href="#book" class="nav-cta">Check Availability</a>
-    </div>
-    <button class="nav-burger" id="navBurger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#home" class="nav-logo">Lagoon<span>Nest</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#booking">Houseboats</a></li>
+    <li><a href="#kayaking">Kayaking</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta">Book Now</a>
 </nav>
 
-<!-- ===================== HERO ===================== -->
-<section class="hero" id="top">
-  <div class="container hero-content">
-    <div class="hero-grid">
-      <div class="hero-text">
-        <div class="eyebrow">Alleppey · Kumarakom · Kollam</div>
-        <h1>Where the backwaters <em>slow time</em> down</h1>
-        <p>Private kettuvallam houseboats with home-cooked Kerala meals, sundecks over Vembanad Lake, and a night under the palms — booked end to end, no surprises.</p>
-        <div class="hero-actions">
-          <a href="#book" class="btn btn-primary">Check Availability</a>
-          <a href="#fleet" class="btn btn-ghost">View the Fleet</a>
-        </div>
-      </div>
-
-      <div class="hero-illustration">
-        <svg viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a traditional Kerala houseboat on the backwaters at sunset">
-          <defs>
-            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#3E7C6F"/>
-              <stop offset="55%" stop-color="#2A5D53"/>
-              <stop offset="100%" stop-color="#16332E"/>
-            </linearGradient>
-            <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#FBE3B4"/>
-              <stop offset="100%" stop-color="#DFA855"/>
-            </radialGradient>
-            <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#234A43"/>
-              <stop offset="100%" stop-color="#11241F"/>
-            </linearGradient>
-          </defs>
-
-          <rect width="600" height="460" rx="28" fill="url(#skyGrad)"/>
-
-          <!-- sun -->
-          <circle cx="300" cy="160" r="58" fill="url(#sunGrad)" opacity="0.92"/>
-
-          <!-- palm trees -->
-          <g opacity="0.55" fill="#102622">
-            <path d="M70 320 C 65 260 95 230 80 200 C 110 220 110 250 100 270 C 130 250 150 230 165 235 C 150 260 120 280 100 290 C 120 285 145 295 150 315 C 120 305 95 310 80 320 Z M75 320 L 88 420 L 82 420 L 70 320 Z"/>
-            <path d="M530 300 C 526 250 550 226 538 200 C 562 218 562 244 553 261 C 578 244 596 228 608 232 C 596 253 571 270 553 279 C 571 274 592 283 596 300 C 571 291 550 296 538 304 Z M533 300 L 543 390 L 538 390 L 528 300 Z" transform="translate(-40,0)"/>
-          </g>
-
-          <!-- water -->
-          <rect x="0" y="300" width="600" height="160" fill="url(#waterGrad)"/>
-          <g stroke="#3E7C6F" stroke-width="2" opacity="0.35" fill="none">
-            <path d="M-20 330 Q 60 320 140 330 T 300 330 T 460 330 T 620 330"/>
-            <path d="M-20 360 Q 60 350 140 360 T 300 360 T 460 360 T 620 360"/>
-            <path d="M-20 392 Q 60 382 140 392 T 300 392 T 460 392 T 620 392"/>
-          </g>
-
-          <!-- reflection -->
-          <ellipse cx="300" cy="312" rx="120" ry="10" fill="#DFA855" opacity="0.18"/>
-
-          <!-- houseboat -->
-          <g class="houseboat-float">
-            <!-- hull -->
-            <path d="M120 320 C 130 300 470 300 480 320 L 460 350 L 140 350 Z" fill="#0E2420"/>
-            <!-- deck base -->
-            <rect x="130" y="280" width="340" height="42" rx="6" fill="#1E4A43"/>
-            <!-- arched coir roof, layered -->
-            <path d="M150 280 C 170 200 430 200 450 280 Z" fill="#BD6F42"/>
-            <path d="M165 280 C 182 220 418 220 435 280 Z" fill="#C97F4F"/>
-            <path d="M182 280 C 198 240 402 240 418 280 Z" fill="#D6925C"/>
-            <!-- rib lines on roof -->
-            <g stroke="#8C4D2C" stroke-width="2" opacity="0.5" fill="none">
-              <path d="M165 280 C 182 220 418 220 435 280"/>
-              <path d="M182 280 C 198 240 402 240 418 280"/>
-              <path d="M200 280 C 215 255 385 255 400 280"/>
-            </g>
-            <!-- windows -->
-            <g fill="#F4EFE2" opacity="0.85">
-              <rect x="200" y="288" width="34" height="24" rx="4"/>
-              <rect x="250" y="288" width="34" height="24" rx="4"/>
-              <rect x="300" y="288" width="34" height="24" rx="4"/>
-              <rect x="350" y="288" width="34" height="24" rx="4"/>
-            </g>
-            <!-- flag pole -->
-            <line x1="300" y1="200" x2="300" y2="170" stroke="#F4EFE2" stroke-width="2"/>
-            <path d="M300 170 L 326 178 L 300 186 Z" fill="#DFA855"/>
-          </g>
-
-          <!-- birds -->
-          <g stroke="#F4EFE2" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7">
-            <path d="M120 90 Q 128 82 136 90 Q 144 82 152 90"/>
-            <path d="M160 70 Q 167 63 174 70 Q 181 63 188 70"/>
-          </g>
-        </svg>
-      </div>
+<!-- ═══ HERO ═══ -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Kerala · Alleppey Backwaters</span>
+    <h1 class="hero-title">
+      Drift Through the <em>Emerald</em> Backwaters
+    </h1>
+    <p class="hero-sub">
+      Premium houseboat stays and kayaking adventures on the legendary Kerala canals. 
+      Wake to birdsong, eat on the water, and let the backwaters slow your world down.
+    </p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-primary">Explore Houseboats</a>
+      <a href="#kayaking" class="btn-outline">Kayaking Adventures</a>
     </div>
 
-    <!-- search widget -->
-    <div class="search-widget" id="book">
-      <div class="field">
-        <label for="destination">Destination</label>
-        <select id="destination">
-          <option>Alleppey · Vembanad Lake</option>
-          <option>Kumarakom Backwaters</option>
-          <option>Kollam · Ashtamudi Lake</option>
-          <option>Munroe Island</option>
-        </select>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">12+</div>
+        <div class="stat-lbl">Houseboat Fleet</div>
       </div>
-      <div class="field">
-        <label for="checkin">Check-in</label>
-        <input type="date" id="checkin">
+      <div class="stat-item">
+        <div class="stat-num">4.9★</div>
+        <div class="stat-lbl">Guest Rating</div>
       </div>
-      <div class="field">
-        <label for="nights">Nights</label>
-        <select id="nights">
-          <option>1 Night</option>
-          <option>2 Nights</option>
-          <option>3 Nights</option>
-        </select>
+      <div class="stat-item">
+        <div class="stat-num">3200+</div>
+        <div class="stat-lbl">Stays Completed</div>
       </div>
-      <div class="field">
-        <label for="guests">Guests</label>
-        <select id="guests">
-          <option>2 Guests</option>
-          <option>4 Guests</option>
-          <option>6 Guests</option>
-          <option>8+ Guests</option>
-        </select>
-      </div>
-      <button class="search-btn" id="searchBtn">Find a Houseboat</button>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== TIDE DIVIDER ===================== -->
-<div class="tide" style="background:var(--teal-900);">
-  <svg viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 30 C 50 10 100 50 150 30 C 200 10 250 50 300 30 C 350 10 400 50 450 30 C 500 10 550 50 600 30 C 650 10 700 50 750 30 C 800 10 850 50 900 30 C 950 10 1000 50 1050 30 C 1100 10 1150 50 1200 30 L 1200 60 L 0 60 Z" fill="#F4EFE2"/>
-  </svg>
-</div>
-
-<!-- ===================== FLEET ===================== -->
-<section class="section fleet" id="fleet">
-  <div class="container">
-    <div class="section-head">
-      <div class="eyebrow">Kettuvallam Collection</div>
-      <h2>Three boats, one tide</h2>
-      <p>Every Kayal houseboat is privately crewed — a captain, a chef, and a deckhand who knows exactly where the water goes quiet at sunset.</p>
-    </div>
-
-    <div class="fleet-grid">
-
-      <!-- Card 1 -->
-      <div class="fleet-card">
-        <div class="fleet-art">
-          <div class="fleet-tag">Vembanad Premium</div>
-          <svg viewBox="0 0 400 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 100 C 40 70 80 100 120 80 C 160 60 200 90 240 75 C 280 60 320 90 360 75 C 380 68 390 80 400 75 L 400 110 L 0 110 Z" fill="#0E2420" opacity="0.6"/>
-            <path d="M60 100 C 80 60 220 60 240 100 Z" fill="#DFA855" opacity="0.9"/>
-            <rect x="75" y="100" width="150" height="14" rx="3" fill="#102622"/>
-          </svg>
-        </div>
-        <div class="fleet-body">
-          <h3>Vembanad Premium</h3>
-          <div class="fleet-route">2 bedrooms · Alleppey to Vembanad Lake</div>
-          <div class="fleet-amenities">
-            <span class="pill">AC Cabins</span>
-            <span class="pill">Private Sundeck</span>
-            <span class="pill">Kerala Meals</span>
-          </div>
-          <div class="fleet-footer">
-            <div class="fleet-price">₹14,500<span>per night</span></div>
-            <a href="#book" class="fleet-link">Reserve</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="fleet-card">
-        <div class="fleet-art">
-          <div class="fleet-tag">Kumarakom Luxury Suite</div>
-          <svg viewBox="0 0 400 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 95 C 40 75 80 100 120 85 C 160 68 200 95 240 80 C 280 65 320 95 360 82 C 380 75 390 85 400 80 L 400 110 L 0 110 Z" fill="#0E2420" opacity="0.6"/>
-            <path d="M50 100 C 75 55 245 55 270 100 Z" fill="#C97F4F" opacity="0.9"/>
-            <rect x="65" y="100" width="195" height="14" rx="3" fill="#102622"/>
-          </svg>
-        </div>
-        <div class="fleet-body">
-          <h3>Kumarakom Luxury Suite</h3>
-          <div class="fleet-route">3 bedrooms · Kumarakom Backwaters loop</div>
-          <div class="fleet-amenities">
-            <span class="pill">AC Cabins</span>
-            <span class="pill">Jacuzzi Deck</span>
-            <span class="pill">Butler Service</span>
-          </div>
-          <div class="fleet-footer">
-            <div class="fleet-price">₹24,900<span>per night</span></div>
-            <a href="#book" class="fleet-link">Reserve</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="fleet-card">
-        <div class="fleet-art">
-          <div class="fleet-tag">Punnamada Family Villa</div>
-          <svg viewBox="0 0 400 110" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 92 C 40 70 80 98 120 82 C 160 64 200 92 240 78 C 280 62 320 92 360 80 C 380 72 390 82 400 78 L 400 110 L 0 110 Z" fill="#0E2420" opacity="0.6"/>
-            <path d="M40 100 C 70 50 270 50 300 100 Z" fill="#D6925C" opacity="0.9"/>
-            <rect x="55" y="100" width="225" height="14" rx="3" fill="#102622"/>
-          </svg>
-        </div>
-        <div class="fleet-body">
-          <h3>Punnamada Family Villa</h3>
-          <div class="fleet-route">4 bedrooms · Alleppey wide loop</div>
-          <div class="fleet-amenities">
-            <span class="pill">AC Cabins</span>
-            <span class="pill">Kids' Deck</span>
-            <span class="pill">Chef On Board</span>
-          </div>
-          <div class="fleet-footer">
-            <div class="fleet-price">₹32,000<span>per night</span></div>
-            <a href="#book" class="fleet-link">Reserve</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ===================== ITINERARY ===================== -->
-<section class="section itinerary" id="itinerary">
-  <div class="container">
-    <div class="section-head">
-      <div class="eyebrow">A Day On The Kayal</div>
-      <h2>How a Kayal cruise unfolds</h2>
-      <p>Every booking follows roughly the same rhythm — the only variable is how slowly you let it move.</p>
-    </div>
-  </div>
-  <div class="container" style="padding:0;">
-    <div class="itinerary-list">
-      <div class="itinerary-item">
-        <div class="itinerary-num">01 / Noon</div>
-        <h3>Boarding at the jetty</h3>
-        <p>Step aboard at Alleppey or Kumarakom, settle into your cabin, and watch the crew cast off into Vembanad Lake.</p>
-      </div>
-      <div class="itinerary-item">
-        <div class="itinerary-num">02 / Afternoon</div>
-        <h3>Paddy fields & coir villages</h3>
-        <p>Cruise past coconut groves and below-sea-level paddy fields, with a stop to see coir rope being made by hand.</p>
-      </div>
-      <div class="itinerary-item">
-        <div class="itinerary-num">03 / Evening</div>
-        <h3>Sunset anchor</h3>
-        <p>The boat anchors in a quiet stretch of water for sunset, followed by a candle-lit Kerala thali on deck.</p>
-      </div>
-      <div class="itinerary-item">
-        <div class="itinerary-num">04 / Morning</div>
-        <h3>Sunrise & return</h3>
-        <p>Wake to tea on the sundeck, a light breakfast, and a gentle cruise back to the jetty by mid-morning.</p>
+      <div class="stat-item">
+        <div class="stat-num">15yr</div>
+        <div class="stat-lbl">On the Water</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== WHY KAYAL ===================== -->
-<section class="section why" id="why">
-  <div class="container">
-    <div class="section-head">
-      <div class="eyebrow">Why Kayal</div>
-      <h2>Built around the boat, not the booking</h2>
-      <p>We operate a small, well-maintained fleet ourselves — so the boat in the photos is the boat that arrives.</p>
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-imgs">
+      <img
+        class="about-img-main"
+        src="https://images.unsplash.com/photo-1566552881560-0be862a7c445?w=800&q=80"
+        alt="Houseboat on Kerala backwaters"
+      />
+      <img
+        class="about-img-small"
+        src="https://images.unsplash.com/photo-1596178060671-7a80dc8059ea?w=500&q=80"
+        alt="Kerala canal life"
+      />
+      <div class="about-badge">
+        <strong>2009</strong>
+        Est. in Kerala
+      </div>
     </div>
 
-    <div class="why-grid">
-      <div class="why-card">
-        <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="16" r="6"/><path d="M10 40c0-7.7 6.3-14 14-14s14 6.3 14 14"/></svg>
-        <h3>Private crew, every trip</h3>
-        <p>A dedicated captain, chef, and deckhand stay with your boat for the full booking — no shared crews, no rushed turnarounds.</p>
+    <div class="about-text">
+      <p class="section-tag">About LagoonNest</p>
+      <h2 class="section-title">Born on the Backwaters, Built for Wanderers</h2>
+      <p class="section-sub">
+        LagoonNest began when a family of Kerala fishermen converted their ancestral kettuvallam into 
+        the backwaters' most-loved floating retreat. Fifteen years on, we run a fleet of twelve 
+        fully-equipped, solar-assisted houseboats navigating Vembanad Lake and the Kuttanad canals.
+      </p>
+      <br />
+      <p class="section-sub">
+        Every stay is guided by people who grew up on these waters — local crew, local cooks, 
+        local knowledge. We keep our footprint light and our memories lasting.
+      </p>
+
+      <ul class="about-features" style="margin-top:1.8rem">
+        <li>Certified eco-friendly solar-powered vessels</li>
+        <li>All-inclusive Kerala meals by on-board chef</li>
+        <li>Air-conditioned private cabins with en-suite bathrooms</li>
+        <li>Personal naturalist guide on every overnight cruise</li>
+        <li>Free kayak pickup from Alleppey boat jetty</li>
+        <li>24/7 captain & crew support throughout your stay</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BOOKING / HOUSEBOATS ═══ -->
+<section id="booking">
+  <div class="booking-inner">
+    <div class="booking-header">
+      <p class="section-tag">Our Fleet</p>
+      <h2 class="section-title">Choose Your Floating Home</h2>
+      <p class="section-sub">
+        From intimate one-bedroom drifters to luxury party cruisers — each vessel is maintained to 
+        hospitality-grade standards and crewed by experienced local pilots.
+      </p>
+    </div>
+
+    <div class="boats-grid">
+      <!-- card 1 -->
+      <div class="boat-card">
+        <img class="boat-img" src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=700&q=80" alt="Classic houseboat" />
+        <div class="boat-body">
+          <p class="boat-tag">1 Bedroom · Up to 2 guests</p>
+          <h3 class="boat-name">The Vembanad Drifter</h3>
+          <p class="boat-desc">A cosy romantic retreat. Teak-panelled bedroom, open sun deck, and a private dining area overlooking lotus fields.</p>
+          <div class="boat-amenities">
+            <span class="amenity-pill">AC Cabin</span>
+            <span class="amenity-pill">Chef Included</span>
+            <span class="amenity-pill">Kayak Access</span>
+          </div>
+          <div class="boat-footer">
+            <div class="boat-price">₹12,500 <span>/ night</span></div>
+            <a href="#booking" class="boat-btn">Book Now</a>
+          </div>
+        </div>
       </div>
-      <div class="why-card">
-        <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 24c4-6 28-6 32 0"/><path d="M12 30h24"/><path d="M16 36h16"/><circle cx="24" cy="14" r="4"/></svg>
-        <h3>Home-cooked Kerala meals</h3>
-        <p>Meals are cooked fresh on board using local fish, vegetables, and spices — breakfast, lunch, evening tea, and dinner included.</p>
+
+      <!-- card 2 -->
+      <div class="boat-card">
+        <img class="boat-img" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=700&q=80" alt="Deluxe houseboat" />
+        <div class="boat-body">
+          <p class="boat-tag">2 Bedrooms · Up to 4 guests</p>
+          <h3 class="boat-name">Kuttanad Breeze</h3>
+          <p class="boat-desc">Family favourite with two air-conditioned cabins, a shaded middle deck, and a full Kerala breakfast at sunrise.</p>
+          <div class="boat-amenities">
+            <span class="amenity-pill">2 AC Cabins</span>
+            <span class="amenity-pill">Sundeck</span>
+            <span class="amenity-pill">Full Meals</span>
+          </div>
+          <div class="boat-footer">
+            <div class="boat-price">₹18,000 <span>/ night</span></div>
+            <a href="#booking" class="boat-btn">Book Now</a>
+          </div>
+        </div>
       </div>
-      <div class="why-card">
-        <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="10" width="32" height="22" rx="3"/><path d="M8 32h32v6H8z"/></svg>
-        <h3>AC cabins & open sundecks</h3>
-        <p>Every cabin has air-conditioning and an attached bathroom, with a shared sundeck for the parts of the day you'll want outside.</p>
+
+      <!-- card 3 -->
+      <div class="boat-card">
+        <img class="boat-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Luxury houseboat" />
+        <div class="boat-body">
+          <p class="boat-tag">3 Bedrooms · Up to 6 guests</p>
+          <h3 class="boat-name">LagoonNest Royal</h3>
+          <p class="boat-desc">Our flagship vessel. Three deluxe cabins, a jacuzzi on the upper deck, private chef, and a naturalist guide all day.</p>
+          <div class="boat-amenities">
+            <span class="amenity-pill">Jacuzzi</span>
+            <span class="amenity-pill">Private Chef</span>
+            <span class="amenity-pill">Naturalist</span>
+          </div>
+          <div class="boat-footer">
+            <div class="boat-price">₹28,000 <span>/ night</span></div>
+            <a href="#booking" class="boat-btn">Book Now</a>
+          </div>
+        </div>
       </div>
-      <div class="why-card">
-        <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6c8 6 14 12 14 20a14 14 0 1 1-28 0c0-8 6-14 14-20Z"/></svg>
-        <h3>Eco-certified boats</h3>
-        <p>Our fleet runs on low-emission engines with on-board waste treatment, so the backwaters stay clean for the next crew of travelers.</p>
+    </div>
+
+    <!-- Booking Form -->
+    <div class="booking-form-wrap">
+      <div class="form-intro">
+        <h3>Reserve Your Houseboat</h3>
+        <p>Fill in your details and we'll confirm your booking within 2 hours. Flexible cancellation up to 48 hours before departure.</p>
+        <br />
+        <p style="color:var(--green-light); font-size:.88rem;">📞 +91 94470 00123<br/>✉ hello@lagoonnest.in</p>
+      </div>
+
+      <div class="booking-fields">
+        <div class="field-row">
+          <div class="field">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your name" />
+          </div>
+          <div class="field">
+            <label>Phone / WhatsApp</label>
+            <input type="tel" placeholder="+91 XXXXX XXXXX" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Check-in Date</label>
+            <input type="date" />
+          </div>
+          <div class="field">
+            <label>Check-out Date</label>
+            <input type="date" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Houseboat Type</label>
+            <select>
+              <option>The Vembanad Drifter (1 BHK)</option>
+              <option>Kuttanad Breeze (2 BHK)</option>
+              <option>LagoonNest Royal (3 BHK)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Guests</label>
+            <select>
+              <option>1 – 2 guests</option>
+              <option>3 – 4 guests</option>
+              <option>5 – 6 guests</option>
+            </select>
+          </div>
+        </div>
+        <button class="form-submit">Check Availability →</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== TESTIMONIALS ===================== -->
-<section class="section testimonials" id="reviews">
-  <div class="container">
-    <div class="section-head" style="margin-left:auto;margin-right:auto;text-align:center;">
-      <div class="eyebrow" style="justify-content:center;">Reviews</div>
-      <h2>From the visitors' book</h2>
+<!-- ═══ KAYAKING ═══ -->
+<section id="kayaking">
+  <div class="kayak-inner">
+    <div class="kayak-header">
+      <p class="section-tag">Water Adventures</p>
+      <h2 class="section-title">Kayaking the Kerala Canals</h2>
+      <p class="section-sub">
+        Glide silently through narrow canals fringed with coconut palms, watch kingfishers dive, 
+        and discover villages that have changed little in centuries — all from the seat of a kayak.
+      </p>
     </div>
 
-    <div class="testi-wrap">
-      <div class="testi-slide active">
-        <p class="testi-quote">"The sunset anchor spot was completely silent except for the water against the hull. Dinner appeared on the deck like it had cooked itself."</p>
-        <div class="testi-author">— Meera R., Bengaluru</div>
-      </div>
-      <div class="testi-slide">
-        <p class="testi-quote">"We booked the Family Villa for eight of us and every cabin was genuinely cool and clean. The kids spent the whole evening on the sundeck."</p>
-        <div class="testi-author">— Daniel P., London</div>
-      </div>
-      <div class="testi-slide">
-        <p class="testi-quote">"Our captain pointed out a kingfisher diving off the bow before we'd even noticed the bird. Small details like that made the trip."</p>
-        <div class="testi-author">— Aisha K., Delhi</div>
+    <div class="kayak-grid">
+      <div class="kayak-img-wrap">
+        <img
+          class="kayak-main-img"
+          src="https://images.unsplash.com/photo-1526188717906-ab4a2f949f47?w=800&q=80"
+          alt="Kayaking in Kerala backwaters"
+        />
+        <div class="kayak-badge">
+          <span class="kayak-badge-icon">🛶</span>
+          <div class="kayak-badge-text">
+            <strong>Beginner Friendly</strong>
+            <span>No experience needed</span>
+          </div>
+        </div>
       </div>
 
-      <div class="testi-dots">
-        <button class="testi-dot active" data-index="0" aria-label="Show review 1"></button>
-        <button class="testi-dot" data-index="1" aria-label="Show review 2"></button>
-        <button class="testi-dot" data-index="2" aria-label="Show review 3"></button>
+      <div class="kayak-packages">
+
+        <div class="kayak-card">
+          <div class="kayak-card-header">
+            <span class="kayak-card-name">Sunrise Canal Paddle</span>
+            <span class="kayak-card-price">₹1,200 / person</span>
+          </div>
+          <p class="kayak-card-desc">A magical 2-hour morning paddle through misty canals. Ideal for couples and first-timers. Life jackets, guide & water included.</p>
+          <div class="kayak-card-tags">
+            <span class="kayak-tag">2 hrs</span>
+            <span class="kayak-tag">Guided</span>
+            <span class="kayak-tag">All levels</span>
+          </div>
+        </div>
+
+        <div class="kayak-card">
+          <div class="kayak-card-header">
+            <span class="kayak-card-name">Village Explorer — Half Day</span>
+            <span class="kayak-card-price">₹2,400 / person</span>
+          </div>
+          <p class="kayak-card-desc">4-hour guided paddle visiting traditional fishing villages, rice paddy islands, and a local toddy-shop stop for refreshments.</p>
+          <div class="kayak-card-tags">
+            <span class="kayak-tag">4 hrs</span>
+            <span class="kayak-tag">Village Visit</span>
+            <span class="kayak-tag">Snacks Included</span>
+          </div>
+        </div>
+
+        <div class="kayak-card">
+          <div class="kayak-card-header">
+            <span class="kayak-card-name">Full-Day Vembanad Crossing</span>
+            <span class="kayak-card-price">₹3,800 / person</span>
+          </div>
+          <p class="kayak-card-desc">Cross the open waters of Vembanad Lake, the longest lake in India. Lunch on a paddy-island, evening return by sunset. For adventurous paddlers.</p>
+          <div class="kayak-card-tags">
+            <span class="kayak-tag">8 hrs</span>
+            <span class="kayak-tag">Lunch Included</span>
+            <span class="kayak-tag">Intermediate</span>
+          </div>
+        </div>
+
+        <div class="kayak-card">
+          <div class="kayak-card-header">
+            <span class="kayak-card-name">Night Kayak — Bioluminescence</span>
+            <span class="kayak-card-price">₹2,800 / person</span>
+          </div>
+          <p class="kayak-card-desc">An unforgettable 2-hour night paddle in season (Oct–Feb) to witness the glowing plankton in the dark canals. Small group, torches provided.</p>
+          <div class="kayak-card-tags">
+            <span class="kayak-tag">2 hrs</span>
+            <span class="kayak-tag">Night Experience</span>
+            <span class="kayak-tag">Seasonal</span>
+          </div>
+        </div>
+
+        <a href="#contact" class="boat-btn" style="align-self:flex-start; margin-top:.5rem; padding:.7rem 1.8rem;">Enquire About Kayaking →</a>
+
       </div>
+    </div>
+
+    <!-- gallery -->
+    <div class="gallery-strip">
+      <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80" alt="Kayak gallery 1" />
+      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" alt="Kerala canals" />
+      <img src="https://images.unsplash.com/photo-1500916434205-0c77489c6cf7?w=600&q=80" alt="Backwater birds" />
+      <img src="https://images.unsplash.com/photo-1596178060671-7a80dc8059ea?w=600&q=80" alt="Kerala sunset" />
     </div>
   </div>
 </section>
 
-<!-- ===================== CTA ===================== -->
-<section class="section cta">
-  <div class="container cta-inner">
-    <div>
-      <h2>Ready to drift?</h2>
-      <p>Pick your dates above and we'll match you to the right boat — or send us your travel dates and we'll hold a cabin while you decide.</p>
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <p class="section-tag">Get In Touch</p>
+      <h2 class="section-title" style="font-size:2.2rem">We're on the Water — Drop Us a Line</h2>
+      <p>Our team is available seven days a week to help you plan the perfect backwaters escape. 
+        For last-minute bookings, WhatsApp is the fastest way to reach us.</p>
+
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-item-text">
+            <strong>Find Us</strong>
+            <span>Finishing Point Jetty, Alleppey (Alappuzha), Kerala 688001</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-item-text">
+            <strong>Call / WhatsApp</strong>
+            <span>+91 94470 00123 · +91 94470 00124</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-item-text">
+            <strong>Email</strong>
+            <span>hello@lagoonnest.in · bookings@lagoonnest.in</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div class="contact-item-text">
+            <strong>Office Hours</strong>
+            <span>Daily 7 AM – 9 PM IST · WhatsApp support 24/7</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <a href="#book" class="btn btn-primary">Check Availability</a>
+
+    <div class="contact-form">
+      <h3>Send Us a Message</h3>
+      <div class="cf-row">
+        <div class="cf-field">
+          <label>Your Name</label>
+          <input type="text" placeholder="Full name" />
+        </div>
+        <div class="cf-field">
+          <label>Email Address</label>
+          <input type="email" placeholder="your@email.com" />
+        </div>
+      </div>
+      <div class="cf-field">
+        <label>Phone / WhatsApp</label>
+        <input type="tel" placeholder="+91 XXXXX XXXXX" />
+      </div>
+      <div class="cf-field">
+        <label>Subject</label>
+        <input type="text" placeholder="Houseboat enquiry / Kayaking / General" />
+      </div>
+      <div class="cf-field">
+        <label>Your Message</label>
+        <textarea placeholder="Tell us your travel dates, group size, or any questions…"></textarea>
+      </div>
+      <button class="cf-submit">Send Message →</button>
+    </div>
   </div>
 </section>
 
-<!-- ===================== FOOTER ===================== -->
+<!-- ═══ FOOTER ═══ -->
 <footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-logo">Kayal Houseboats</div>
-        <p>A small operator running a small fleet of kettuvallam houseboats across Alleppey, Kumarakom, and Kollam — privately crewed, eco-certified, and booked direct.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Destinations</h4>
-        <a href="#">Alleppey</a>
-        <a href="#">Kumarakom</a>
-        <a href="#">Kollam</a>
-        <a href="#">Munroe Island</a>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <a href="#fleet">The Fleet</a>
-        <a href="#itinerary">Itinerary</a>
-        <a href="#reviews">Reviews</a>
-        <a href="#">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h4>Stay in the loop</h4>
-        <p>Seasonal availability and backwater notes, a few times a year.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault();">
-          <input type="email" placeholder="you@example.com" required>
-          <button type="submit">Join</button>
-        </form>
-      </div>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#home" class="nav-logo">Lagoon<span>Nest</span></a>
+      <p>Kerala's most loved houseboat experience — on the waters since 2009.</p>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 Kayal Houseboats. All rights reserved.</span>
-      <div class="tide-mini">
-        <svg viewBox="0 0 240 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 10 C 10 2 20 18 30 10 C 40 2 50 18 60 10 C 70 2 80 18 90 10 C 100 2 110 18 120 10 C 130 2 140 18 150 10 C 160 2 170 18 180 10 C 190 2 200 18 210 10 C 220 2 230 18 240 10" fill="none" stroke="#DFA855" stroke-width="2"/>
-        </svg>
-      </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#booking">Houseboats</a></li>
+        <li><a href="#kayaking">Kayaking</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
+    <div class="footer-links">
+      <h4>Our Boats</h4>
+      <ul>
+        <li><a href="#booking">Vembanad Drifter</a></li>
+        <li><a href="#booking">Kuttanad Breeze</a></li>
+        <li><a href="#booking">LagoonNest Royal</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Kayaking</h4>
+      <ul>
+        <li><a href="#kayaking">Sunrise Paddle</a></li>
+        <li><a href="#kayaking">Village Explorer</a></li>
+        <li><a href="#kayaking">Full-Day Crossing</a></li>
+        <li><a href="#kayaking">Night Kayak</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 LagoonNest Kerala · All rights reserved · Designed with 💚 for the backwaters
   </div>
 </footer>
-
-<script>
-  // Nav scroll state
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  });
-
-  // Mobile menu
-  const burger = document.getElementById('navBurger');
-  const navLinks = document.getElementById('navLinks');
-  burger.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-  });
-  navLinks.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => navLinks.classList.remove('open'));
-  });
-
-  // Testimonial carousel
-  const slides = document.querySelectorAll('.testi-slide');
-  const dots = document.querySelectorAll('.testi-dot');
-  let current = 0;
-  function showSlide(i){
-    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
-    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
-    current = i;
-  }
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => showSlide(parseInt(dot.dataset.index)));
-  });
-  setInterval(() => showSlide((current + 1) % slides.length), 6000);
-
-  // Default check-in date to today
-  const checkin = document.getElementById('checkin');
-  if (checkin) {
-    const today = new Date().toISOString().split('T')[0];
-    checkin.min = today;
-    checkin.value = today;
-  }
-
-  // Search button feedback
-  document.getElementById('searchBtn').addEventListener('click', () => {
-    const dest = document.getElementById('destination').value;
-    alert('Searching availability for ' + dest + ' — booking flow coming soon!');
-  });
-</script>
 
 </body>
 </html>
