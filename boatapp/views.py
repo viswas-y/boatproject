@@ -17,6 +17,8 @@ def booking2(request):
 
 
 
+from django.core.mail import send_mail
+from django.conf import settings
 
 def booking(request):
     message = ""
@@ -34,23 +36,26 @@ def booking(request):
         body = f"""
 New Booking Received
 
-Name : {name}
-Email : {email}
-Phone : {phone}
+Name: {name}
+Email: {email}
+Phone: {phone}
 
-Service : {service}
-Date : {date}
-Guests : {guests}
+Service: {service}
+Date: {date}
+Guests: {guests}
 """
 
-        send_mail(
-            subject,
-            body,
-            settings.EMAIL_HOST_USER,
-            ["yourmail@gmail.com"],
-            fail_silently=False,
-        )
-
-        message = "Booking Sent Successfully!"
+        try:
+            send_mail(
+                subject,
+                body,
+                settings.EMAIL_HOST_USER,
+                ["yourmail@gmail.com"],   # Replace with your email
+                fail_silently=False,
+            )
+            message = "Booking Sent Successfully!"
+        except Exception as e:
+            message = str(e)
+            print(e)
 
     return render(request, "booking_email.html", {"message": message})
