@@ -50,7 +50,7 @@ Guests: {guests}
                 subject,
                 body,
                 settings.EMAIL_HOST_USER,
-                ["yourmail@gmail.com"],   # Replace with your email
+                ["freshmartshop123@gmail.com"],   # Replace with your email
                 fail_silently=False,
             )
             message = "Booking Sent Successfully!"
